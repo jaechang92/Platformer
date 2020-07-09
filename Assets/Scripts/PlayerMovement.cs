@@ -17,22 +17,53 @@ public class MoveData
 }
 
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Movement
 {
     public MoveData moveData = new MoveData();
     
 
-    Rigidbody m_physics;
+    public Rigidbody m_physics;
     Transform m_tr;
 
     public Vector3 m_velocity;
+    public Vector3 target = Vector3.zero;
+
+
     float horizontal;
     float vertical;
-    public Vector3 target = Vector3.zero;
-    void Start()
+    Animator animator;
+
+
+    private void initOptions()
     {
+        if (constF == 0)
+        {
+            constF = 50;
+        }
+        if (moveData.moveSpeed == 0)
+        {
+            moveData.moveSpeed = 5;
+        }
+        if (moveData.jumpSpeed == 0)
+        {
+            moveData.jumpSpeed = 5;
+        }
+
         m_tr = this.GetComponent<Transform>();
         m_physics = this.GetComponent<Rigidbody>();
+        animator = this.GetComponent<Animator>();
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        initOptions();
+    }
+
+    void Start()
+    {
+        
         
 
     }
@@ -42,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         MoveFunc();
-        m_tr.position = Vector3.MoveTowards(m_tr.position, target, Time.deltaTime * constF);
+        
 
         
 
@@ -84,8 +115,26 @@ public class PlayerMovement : MonoBehaviour
 
         Dash();
         target = new Vector3(target.x + horizontal * moveData.moveSpeed * Time.deltaTime, m_tr.position.y, m_tr.position.z);
-        
+        if (characterState._isRightDir && horizontal < 0 || !characterState._isRightDir && horizontal > 0)
+        {
+            Flip();
+        }
 
+
+        if (Input.GetKey(KeyCode.RightArrow)||Input.GetKey(KeyCode.LeftArrow))
+        {
+            animator.SetBool("Walk", true);
+            Debug.Log("true");
+        }
+        else
+        {
+            animator.SetBool("Walk", false);
+            Debug.Log("false");
+        }
+
+
+
+        m_tr.position = Vector3.MoveTowards(m_tr.position, target, Time.deltaTime * constF);
     }
 
     private void JumpFunc()
@@ -160,3 +209,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
 }
+
+
+

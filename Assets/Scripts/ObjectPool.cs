@@ -2,6 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class Pool
+{
+    public string poolName;
+    public List<GameObject> list = new List<GameObject>();
+    public int poolSize;
+    public GameObject prefab;
+}
+
+
 public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool instance;
@@ -15,44 +25,61 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
+    public Pool[] pool;
 
 
-    [SerializeField]
-    public List<GameObject> objectsPool = new List<GameObject>();
+    //[SerializeField]
+    //public List<GameObject> objectsPool,itemPool = new List<GameObject>();
 
-    int poolSize = 20;
-    public GameObject prefab;
+    //public int itemPoolSize;
+    //int poolSize = 20;
+    //public GameObject objectsPrefab;
+    //public GameObject itemPrefab;
     // Start is called before the first frame update
+
     void Start()
     {
-        for (int i = 0; i < poolSize; i++)
+        foreach (var item in pool)
         {
-            objectsPool.Add(Instantiate(prefab,Vector3.zero,Quaternion.identity, this.transform));
-            objectsPool[i].SetActive(false);
+            GameObject tmp;
+            for (int i = 0; i < item.poolSize; i++)
+            {
+                tmp = Instantiate(item.prefab, Vector3.zero, Quaternion.identity, this.transform);
+                item.list.Add(tmp);
+                tmp.SetActive(false);
+            }
         }
+
+        //for (int i = 0; i < poolSize; i++)
+        //{
+        //    objectsPool.Add(Instantiate(objectsPrefab, Vector3.zero, Quaternion.identity, this.transform));
+        //    objectsPool[i].SetActive(false);
+        //}
+
+        //for (int j = 0; j < itemPoolSize; j++)
+        //{
+        //    itemPool.Add(Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, this.transform));
+        //    itemPool[j].SetActive(false);
+        //}
+
         //StartCoroutine(CreTest());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
 
-    IEnumerator CreTest()
-    {
-        while (true)
-        {
-            GameObject temp;
-            temp = objectsPool[0];
-            temp.SetActive(true);
-            Debug.Log(this.transform.root.name);
-            temp.transform.SetParent(null);
-            objectsPool.RemoveAt(0);
-            yield return new WaitForSeconds(1.0f);
-        }
-    }
+    //IEnumerator CreTest()
+    //{
+    //    while (true)
+    //    {
+    //        GameObject temp;
+    //        temp = objectsPool[0];
+    //        temp.SetActive(true);
+    //        Debug.Log(this.transform.root.name);
+    //        temp.transform.SetParent(null);
+    //        objectsPool.RemoveAt(0);
+    //        yield return new WaitForSeconds(1.0f);
+    //    }
+    //}
 
     public void PushOfObjectPool(List<GameObject> PoolName, GameObject PushObject)
     {
@@ -60,27 +87,28 @@ public class ObjectPool : MonoBehaviour
         PushObject.transform.SetParent(this.transform);
     }
 
-    public void PullOfObjectPool(List<GameObject> PoolName)
+    public GameObject PullOfObjectPool(Pool PoolName)
     {
-        if (PoolName.Count != 0)
+        GameObject tmp;
+        if (PoolName.list.Count != 0)
         {
-            GameObject temp = PoolName[0];
-            temp.transform.SetParent(null);
-            temp.SetActive(true);
-            PoolName.Remove(temp);
+            tmp = PoolName.list[0];
+            tmp.transform.SetParent(null);
+            tmp.SetActive(true);
+            PoolName.list.Remove(tmp);
         }
         else
         {
-            GameObject temp = Instantiate(prefab, Vector3.zero, Quaternion.identity, this.transform);
-            PoolName.Add(temp);
-            temp.SetActive(false);
+            tmp = Instantiate(PoolName.prefab, Vector3.zero, Quaternion.identity, this.transform);
+            PoolName.list.Add(tmp);
+            tmp.SetActive(false);
 
-            temp = PoolName[0];
-            temp.transform.SetParent(null);
-            temp.SetActive(true);
-            PoolName.Remove(temp);
+            tmp = PoolName.list[0];
+            tmp.transform.SetParent(null);
+            tmp.SetActive(true);
+            PoolName.list.Remove(tmp);
         }
-
+        return tmp;
     }
 
 

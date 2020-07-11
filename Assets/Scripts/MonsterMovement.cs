@@ -65,7 +65,7 @@ public class MonsterMovement : Movement
         isGround = EndOfMapCheck.instance.isGround;
         if (isGround)
         {
-            Debug.Log("Target = " + tr.position + Vector3.right * moveSpeed);
+            //Debug.Log("Target = " + tr.position + Vector3.right * moveSpeed);
             tr.position = Vector3.MoveTowards(tr.position, tr.position + Vector3.right * moveSpeed, Time.deltaTime * Mathf.Abs(moveSpeed));
         }
     }

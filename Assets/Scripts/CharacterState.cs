@@ -30,4 +30,6 @@ public class CharacterState : MonoBehaviour
             this.playerState = value;
         }
     }
+
+
 }

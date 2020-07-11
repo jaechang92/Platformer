@@ -373,8 +373,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 795838610}
-        m_MethodName: StartBtn
+      - m_Target: {fileID: 795838608}
+        m_MethodName: 
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -471,9 +471,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 795838608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc669d8545c087a498af8f694fbc44d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 81009471d6f27c14caea68103cd8dd8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inven: {fileID: 0}
 --- !u!1 &857083133
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,7 +657,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 795838610}
+      - m_Target: {fileID: 0}
         m_MethodName: AppExit
         m_Mode: 1
         m_Arguments:

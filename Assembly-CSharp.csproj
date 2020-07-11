@@ -64,13 +64,17 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CharacterState.cs" />
     <Compile Include="Assets\Scripts\DontDestroy.cs" />
+    <Compile Include="Assets\Scripts\DropItem.cs" />
     <Compile Include="Assets\Scripts\EndOfMapCheck.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\InputAttack.cs" />
+    <Compile Include="Assets\Scripts\Item.cs" />
+    <Compile Include="Assets\Scripts\ItemData.cs" />
+    <Compile Include="Assets\Scripts\ItemOption.cs" />
     <Compile Include="Assets\Scripts\MonsterMovement.cs" />
     <Compile Include="Assets\Scripts\Movement.cs" />
     <Compile Include="Assets\Scripts\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
-    <Compile Include="Assets\Scripts\UImanager.cs" />
     <Compile Include="Assets\Scripts\UIScripts\Inventory.cs" />
     <Compile Include="Assets\Scripts\UIScripts\Slot.cs" />
     <Compile Include="Assets\Scripts\UIScripts\UIManager.cs" />
